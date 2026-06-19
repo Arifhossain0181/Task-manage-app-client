@@ -1,38 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task-manage-app-client
 
-## Getting Started
+A Next.js client application for managing tasks (UI only). This repository contains the frontend built with the Next.js app directory.
 
-First, run the development server:
+## Prerequisites
+
+- Node.js 18 or later
+- npm, pnpm, or yarn installed
+
+## Install dependencies
+
+Install the project dependencies from the repository root:
+
+```bash
+npm install
+# or
+# yarn
+# or
+# pnpm install
+```
+
+## Development
+
+Run the development server with hot reload:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build and run (production)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create an optimized production build, then run the production server:
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Available scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev` — start development server
+- `npm run build` — build for production
+- `npm run start` — run production server
+- `npm run lint` — run ESLint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment
 
-## Deploy on Vercel
+If the app requires runtime configuration, create a `.env.local` file in the project root and add the variables your backend or services require. Example (replace with real keys if applicable):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+# API_URL=https://api.example.com
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Task-manage-app-client
-# Task-manage-app-client
+## Deploy
+
+This project can be deployed to Vercel or any platform that supports Next.js. See the Next.js deployment documentation:
+
+https://nextjs.org/docs/app/building-your-application/deploying
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Open a pull request
+
+## Notes
+
+- This README contains only basic instructions to run the project locally. Update the Environment section with exact variables if the project depends on a backend or external services.
+
