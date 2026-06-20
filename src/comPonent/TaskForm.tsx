@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useForm, type ControllerRenderProps } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, Plus, Sparkles } from 'lucide-react';
+import { Loader2, Plus } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { taskFormSchema, TaskFormValues } from './../libs/schemas';
 import api from '../libs/axios';
@@ -34,9 +36,16 @@ export default function TaskForm() {
       const res = await api.post('/tasks', values);
       return res.data;
     },
+    onMutate: () => {
+      toast.loading('Creating task...')
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       form.reset();
+      toast.success('Task created')
+    },
+    onError: (err: any) => {
+      toast.error(err?.message ?? 'Failed to create task')
     },
   });
 
@@ -60,9 +69,6 @@ export default function TaskForm() {
           transition={{ delay: 0.1, duration: 0.5 }}
           className="flex items-center gap-2 mb-6"
         >
-          <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500/25 to-cyan-400/20 border border-blue-400/20">
-            <Sparkles className="w-4 h-4 text-blue-300" />
-          </div>
           <div>
             <h2 className="text-xl font-semibold text-white tracking-tight">
               Create New Task

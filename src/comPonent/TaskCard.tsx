@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { motion, AnimatePresence } from "framer-motion"
 import { Check, Pencil, Trash2, X, Loader2 } from "lucide-react"
+import { toast } from 'sonner'
 import api from "../libs/axios"
 import { Task, TaskStatus } from "../types/task"
 import { Button } from "@/src/components/ui/button"
@@ -32,15 +33,31 @@ export default function TaskCard({ task }: { task: Task }) {
       const res = await api.patch(`/tasks/${task.id}`, values)
       return res.data
     },
+    onMutate: () => {
+      toast.loading('Saving changes...')
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] })
       setIsEditing(false)
+      toast.success('Task updated')
+    },
+    onError: (err: any) => {
+      toast.error(err?.message ?? 'Failed to update task')
     },
   })
 
   const deleteMutation = useMutation({
     mutationFn: async () => { await api.delete(`/tasks/${task.id}`) },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
+    onMutate: () => {
+      toast.loading('Deleting...')
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] })
+      toast.success('Task deleted')
+    },
+    onError: (err: any) => {
+      toast.error(err?.message ?? 'Failed to delete task')
+    },
   })
 
   const handleCancel = () => {
