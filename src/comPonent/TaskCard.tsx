@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useState } from "react"
@@ -33,9 +34,6 @@ export default function TaskCard({ task }: { task: Task }) {
       const res = await api.patch(`/tasks/${task.id}`, values)
       return res.data
     },
-    onMutate: () => {
-      toast.loading('Saving changes...')
-    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] })
       setIsEditing(false)
@@ -48,9 +46,6 @@ export default function TaskCard({ task }: { task: Task }) {
 
   const deleteMutation = useMutation({
     mutationFn: async () => { await api.delete(`/tasks/${task.id}`) },
-    onMutate: () => {
-      toast.loading('Deleting...')
-    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] })
       toast.success('Task deleted')

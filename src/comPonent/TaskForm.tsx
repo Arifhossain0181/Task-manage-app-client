@@ -36,9 +36,6 @@ export default function TaskForm() {
       const res = await api.post('/tasks', values);
       return res.data;
     },
-    onMutate: () => {
-      toast.loading('Creating task...')
-    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       form.reset();
